@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">EATSY</string>
+
+    <string name="home_background_img_description">Background image of salad</string>
+    <string name="yogurt_background_img_description">Background image of yogurt parfait</string>
+
+    <string name="str_iv_recipe">Image of yogurt parfait</string>
+    <string name="str_tv_meal_label">Breakfast</string>
+    <string name="str_tv_calorie">190 – 200 kcal</string>
+    <string name="str_tv_time">10</string>
+    <string name="str_tv_min">min</string>
+    <string name="str_iv_save_icon">SAVE</string>
+    <string name="str_tv_meal_title">Yogurt Parfait</string>
+
+    <string name="str_tv_yogurt_meal_desc">A BREAKFAST DISH MADE BY LAYERING CREAMY YOGURT WITH SWEETENERS, MIXED BERRIES, AND GRANOLA.</string>
+    <string name="str_tv_yogurt_time">10 min \nTotal</string>
+    <string name="str_tv_yogurt_calorie">190 – 200 \nCalories (kCal)</string>
+    <string name="str_tv_yogurt_diff">Easy \nDifficulty</string>
+    <string name="str_tv_ing">Ingredients</string>
+
+    <string name="str_tv_ing_yogurt">½ CUP NON-FAT GREEK YOGURT \n\nAROUND 70 kcal (RM 7.13)</string>
+    <string name="str_tv_ing_berries">¼ CUP MIXED BERRIES \n\nAROUND 20 – 30 kcal (RM 1.58)</string>
+    <string name="str_tv_ing_honey">1 TEASPOON HONEY \n\nAROUND 20 kcal (RM 0.14)</string>
+    <string name="str_tv_ing_granola">2 TABLESPOON GRANOLA \n\nAROUND 80 kcal (RM 1.19)</string>
+</resources>

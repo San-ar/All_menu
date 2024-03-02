@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    android:background="@drawable/dialog_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/layout_from_Saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:text="Add From Saved Meals"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/save_icon" />
+
+        <TextView
+            android:id="@+id/layout_from_All"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:text="Add From All Meals"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/search_icon" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
