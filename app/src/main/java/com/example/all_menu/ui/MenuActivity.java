@@ -59,6 +59,7 @@ public class MenuActivity extends AppCompatActivity {
         btnBreakfast = findViewById(R.id.btnBreakfast);
         btnLunch = findViewById(R.id.btnLunch);
         btnDinner = findViewById(R.id.btnDinner);
+        TextView textView = findViewById(R.id.back_all_menu);
         selectedOptionIndicator = findViewById(R.id.selectedOptionIndicator);
 
 
@@ -77,16 +78,16 @@ public class MenuActivity extends AppCompatActivity {
         btnLunch.setOnClickListener(v -> filterMenuItems(LUNCH));
         btnDinner.setOnClickListener(v -> filterMenuItems(DINNER));
 
-        TextView textView = findViewById(R.id.back_all_menu);
-
         // Handle click event for the All Menu Back TextView
         //textView.setOnClickListener(v -> finish());
         textView.setOnClickListener(v -> {
             Intent intent = new Intent(this, MealPlannerActivity.class);
             // Pass the list of saved meals as an extra
-            intent.putExtra("savedMeals", new ArrayList<>(savedMealsList)); // Assuming savedMealsList is a List<MenuVerModel>
+            intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         });
+
         // By default, select "All" option in filter menu
         ViewTreeObserver viewTreeObserver = btnAll.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

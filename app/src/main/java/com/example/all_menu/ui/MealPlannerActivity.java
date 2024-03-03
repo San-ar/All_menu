@@ -38,7 +38,11 @@ public class MealPlannerActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
 
         // Click event for the Meal Planner Back TextView
-        back_meal_planner.setOnClickListener(v -> finish());
+        back_meal_planner.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
 
         // Calculate start and end dates of next week
         Calendar calendar = Calendar.getInstance();
@@ -94,7 +98,7 @@ public class MealPlannerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SundayPlannerActivity.class);
         // Pass the saved meals list as an intent extra
         intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 

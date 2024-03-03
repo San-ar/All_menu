@@ -1,7 +1,5 @@
 package com.example.all_menu.ui;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +21,6 @@ import com.example.all_menu.models.MenuVerModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SundayPlannerActivity extends AppCompatActivity {
 
@@ -51,7 +48,7 @@ public class SundayPlannerActivity extends AppCompatActivity {
         // Click event for the Sunday Planner Back TextView
         back_sunday_planner.setOnClickListener(v -> {
             Intent intent = new Intent(SundayPlannerActivity.this, MealPlannerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         });
 
