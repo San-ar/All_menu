@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.all_menu.R;
-import com.example.all_menu.adapters.ListViewAdapter;
 import com.example.all_menu.adapters.SavedHorAdapter;
-import com.example.all_menu.models.ListViewModel;
 import com.example.all_menu.models.MenuVerModel;
 
 import java.text.SimpleDateFormat;
@@ -26,8 +23,6 @@ import java.util.Locale;
 
 public class MealPlannerActivity extends AppCompatActivity {
 
-    ///public static ArrayList<ListViewModel> itemList = new ArrayList<ListViewModel>();
-    ///public ListView listView;
     private List<MenuVerModel> savedMealsList;
 
     @Override
@@ -99,6 +94,7 @@ public class MealPlannerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SundayPlannerActivity.class);
         // Pass the saved meals list as an intent extra
         intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

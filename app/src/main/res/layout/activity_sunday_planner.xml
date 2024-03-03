@@ -58,57 +58,80 @@
                 android:orientation="vertical"
                 android:layout_gravity="center_horizontal">
 
-                <TextView
-                    android:id="@+id/tv_day_item0"
-                    android:onClick="sunday_planner_action"
-                    android:layout_width="365dp"
-                    android:layout_height="96dp"
+                <LinearLayout
+                    android:id="@+id/breakfastContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginTop="25dp"
-                    android:background="@drawable/rounded_corners"
-                    android:gravity="center_vertical"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="Breakfast"
-                    android:textColor="@color/black"
-                    android:textSize="27sp"
-                    app:drawableEndCompat="@drawable/add" />
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners">
 
-                <TextView
-                    android:id="@+id/tv_day_item1"
-                    android:layout_width="365dp"
-                    android:layout_height="96dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/rounded_corners"
-                    android:gravity="center_vertical"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="Lunch"
-                    android:textColor="@color/black"
-                    android:textSize="27sp"
-                    app:drawableEndCompat="@drawable/add" />
+                    <TextView
+                        android:id="@+id/tv_day_item0"
+                        android:onClick="sunday_planner_action"
+                        android:layout_width="365dp"
+                        android:layout_height="96dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Breakfast"
+                        android:textColor="@color/black"
+                        android:textSize="27sp"
+                        app:drawableEndCompat="@drawable/add" />
 
-                <TextView
-                    android:id="@+id/tv_day_item2"
-                    android:layout_width="365dp"
-                    android:layout_height="96dp"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lunchContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginTop="25dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="Dinner"
-                    android:background="@drawable/rounded_corners"
-                    android:textColor="@color/black"
-                    android:textSize="27sp"
-                    app:drawableEndCompat="@drawable/add" />
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners">
+
+                    <TextView
+                        android:id="@+id/tv_day_item1"
+                        android:layout_width="365dp"
+                        android:layout_height="96dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Lunch"
+                        android:textColor="@color/black"
+                        android:textSize="27sp"
+                        app:drawableEndCompat="@drawable/add" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dinnerContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corners">
+
+                    <TextView
+                        android:id="@+id/tv_day_item2"
+                        android:layout_width="365dp"
+                        android:layout_height="96dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Dinner"
+                        android:textColor="@color/black"
+                        android:textSize="27sp"
+                        app:drawableEndCompat="@drawable/add" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
