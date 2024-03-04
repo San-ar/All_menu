@@ -22,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
-public class SundayPlannerActivity extends AppCompatActivity {
+public class SundayPlannerActivity extends AppCompatActivity implements SavedHorAdapter.OnMoreOptionsClickListener{
 
     private String chosenMealType;
 
@@ -61,7 +61,7 @@ public class SundayPlannerActivity extends AppCompatActivity {
             RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(layoutManager);
-            SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList);
+            SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, this);
             recyclerView.setAdapter(adapter);
         } else {
             Log.e("SundayPlannerActivity", "Saved meals list is null");
@@ -99,6 +99,68 @@ public class SundayPlannerActivity extends AppCompatActivity {
                 }
         );
 
+    }
+
+    public void onMoreOptionsClick(MenuVerModel meal) {
+        // Show the bottom sheet dialog with meal type options
+        showBottomSheetDialog(meal);
+    }
+
+    private void showBottomSheetDialog(MenuVerModel meal) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout_meal, null);
+        bottomSheetView.setBackground(ContextCompat.getDrawable(this, R.drawable.dialog_bg));
+        bottomSheetView.findViewById(R.id.option_breakfast).setOnClickListener(v -> {
+            chosenMealType = "Breakfast";
+            inflateMealIntoContainer(meal);
+            bottomSheetDialog.dismiss();
+        });
+        bottomSheetView.findViewById(R.id.option_lunch).setOnClickListener(v -> {
+            chosenMealType = "Lunch";
+            inflateMealIntoContainer(meal);
+            bottomSheetDialog.dismiss();
+        });
+        bottomSheetView.findViewById(R.id.option_dinner).setOnClickListener(v -> {
+            chosenMealType = "Dinner";
+            inflateMealIntoContainer(meal);
+            bottomSheetDialog.dismiss();
+        });
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+    }
+
+    private void inflateMealIntoContainer(MenuVerModel meal) {
+        // Inflate your custom card layout
+        View mealCardView = getLayoutInflater().inflate(R.layout.added_meal_card, null);
+
+        // Set meal image and title
+        ImageView ivAddedRecipe = mealCardView.findViewById(R.id.iv_added_recipe);
+        TextView tvAddedMealTitle = mealCardView.findViewById(R.id.tv_added_meal_title);
+
+        ivAddedRecipe.setImageResource(meal.getIv_recipe());
+        tvAddedMealTitle.setText(meal.getTv_meal_title());
+
+        // Find the appropriate LinearLayout and add the card
+        LinearLayout container;
+        if (chosenMealType != null) {
+            switch (chosenMealType) {
+                case "Breakfast":
+                    container = breakfastContainer;
+                    break;
+                case "Lunch":
+                    container = lunchContainer;
+                    break;
+                case "Dinner":
+                    container = dinnerContainer;
+                    break;
+                default:
+                    Log.e("SundayPlannerActivity", "Invalid meal type");
+                    return; // Invalid meal type
+            }
+            container.addView(mealCardView);
+        } else {
+            Log.e("SundayPlannerActivity", "chosenMealType is null");
+        }
     }
 
     private void showOptionsDialog() {

@@ -17,9 +17,11 @@ import java.util.List;
 public class SavedHorAdapter extends RecyclerView.Adapter<SavedHorAdapter.ViewHolder> {
 
     private List<MenuVerModel> savedMealsList;
+    private OnMoreOptionsClickListener onMoreOptionsClickListener;
 
-    public SavedHorAdapter(List<MenuVerModel> savedMealsList) {
+    public SavedHorAdapter(List<MenuVerModel> savedMealsList, OnMoreOptionsClickListener listener) {
         this.savedMealsList = savedMealsList;
+        this.onMoreOptionsClickListener = listener;
     }
 
     @NonNull
@@ -36,6 +38,12 @@ public class SavedHorAdapter extends RecyclerView.Adapter<SavedHorAdapter.ViewHo
         holder.mealImageView.setImageResource(meal.getIv_recipe());
         holder.mealTitleTextView.setText(meal.getTv_meal_title());
 
+        // Set click listener for iv_more_options
+        holder.moreOptionsImageView.setOnClickListener(v -> {
+            if (onMoreOptionsClickListener != null) {
+                onMoreOptionsClickListener.onMoreOptionsClick(meal);
+            }
+        });
     }
 
     @Override
@@ -47,11 +55,18 @@ public class SavedHorAdapter extends RecyclerView.Adapter<SavedHorAdapter.ViewHo
 
         ImageView mealImageView;
         TextView mealTitleTextView;
+        ImageView moreOptionsImageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mealImageView = itemView.findViewById(R.id.iv_hor_saved_meal);
             mealTitleTextView = itemView.findViewById(R.id.tv_hor_saved_title);
+            moreOptionsImageView = itemView.findViewById(R.id.iv_more_options);
         }
+    }
+
+    // Interface to handle click events on iv_more_options
+    public interface OnMoreOptionsClickListener {
+        void onMoreOptionsClick(MenuVerModel meal);
     }
 }

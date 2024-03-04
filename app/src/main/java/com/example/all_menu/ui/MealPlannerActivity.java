@@ -79,7 +79,7 @@ public class MealPlannerActivity extends AppCompatActivity {
         Log.d("MealPlannerActivity", "Saved meals list size: " + savedMealsList.size());
 
         // Initialize and set adapter
-        SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList);
+        SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, null);
         recyclerView.setAdapter(adapter);
 
     }
