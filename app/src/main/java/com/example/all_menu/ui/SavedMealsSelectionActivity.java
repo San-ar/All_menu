@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SavedMealsActivity extends AppCompatActivity implements SelectMealsAdapter.OnItemClickListener {
+public class SavedMealsSelectionActivity extends AppCompatActivity implements SelectMealsAdapter.OnItemClickListener {
 
     private SharedPreferences sharedPreferences;
     private SelectMealsAdapter adapter;
@@ -31,15 +31,14 @@ public class SavedMealsActivity extends AppCompatActivity implements SelectMeals
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_meals);
+        setContentView(R.layout.activity_saved_meals_selection);
 
-        TextView back_select_saved = findViewById(R.id.back_saved_meals);
+        TextView back_select_saved = findViewById(R.id.back_select_meals_saved);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         TextView emptyTextView = findViewById(R.id.emptyTextView);
 
         bt_add_meal = findViewById(R.id.bt_add_meal);
-
 
         back_select_saved.setOnClickListener(view -> finish());
 
