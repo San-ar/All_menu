@@ -35,7 +35,7 @@ public class SelectMealsAdapter extends RecyclerView.Adapter<SelectMealsAdapter.
 
     private final Context context;
 
-    private final List<MenuVerModel> list;
+    private List<MenuVerModel> list;
 
     private int selectedItemIndex = -1;
 
@@ -63,6 +63,12 @@ public class SelectMealsAdapter extends RecyclerView.Adapter<SelectMealsAdapter.
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    // Method to update the menu list with filtered data
+    public void setMenuList(List<MenuVerModel> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -29,6 +29,7 @@ public class SundayPlannerActivity extends AppCompatActivity {
     private LinearLayout breakfastContainer;
     private LinearLayout lunchContainer;
     private LinearLayout dinnerContainer;
+    private ActivityResultLauncher<Intent> selectedMealsLauncher;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +82,23 @@ public class SundayPlannerActivity extends AppCompatActivity {
             showOptionsDialog();
         });
 
+        // Initialize the ActivityResultLauncher
+        selectedMealsLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            int mealImage = data.getIntExtra("mealImage", 0);
+                            String mealTitle = data.getStringExtra("mealTitle");
+                            if (mealImage != 0 && mealTitle != null) {
+                                displayMealDetails(mealImage, mealTitle);
+                            }
+                        }
+                    }
+                }
+        );
+
     }
 
     private void showOptionsDialog() {
@@ -105,29 +123,17 @@ public class SundayPlannerActivity extends AppCompatActivity {
     }
 
     private void showAllMeals() {
+        Intent intent = new Intent(this, AllMealsSelectionActivity.class);
+        selectedMealsLauncher.launch(intent);
     }
 
     private void showSavedMeals() {
 
-        Intent intent = new Intent(SundayPlannerActivity.this, SavedMealsActivity.class);
-        savedMealsLauncher.launch(intent);
+        Intent intent = new Intent(this, SavedMealsSelectionActivity.class);
+        selectedMealsLauncher.launch(intent);
     }
 
-    private final ActivityResultLauncher<Intent> savedMealsLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null) {
-                        int mealImage = data.getIntExtra("mealImage", 0);
-                        String mealTitle = data.getStringExtra("mealTitle");
-                        if (mealImage != 0 && mealTitle != null) {
-                            displayMealDetails(mealImage, mealTitle);
-                        }
-                    }
-                }
-            }
-    );
+
 
     private void displayMealDetails(int mealImage, String mealTitle) {
         // Inflate your custom card layout
