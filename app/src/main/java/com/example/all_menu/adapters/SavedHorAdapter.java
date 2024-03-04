@@ -41,7 +41,9 @@ public class SavedHorAdapter extends RecyclerView.Adapter<SavedHorAdapter.ViewHo
         // Set click listener for iv_more_options
         holder.moreOptionsImageView.setOnClickListener(v -> {
             if (onMoreOptionsClickListener != null) {
-                onMoreOptionsClickListener.onMoreOptionsClick(meal);
+                int mealImage = meal.getIv_recipe();
+                String mealTitle = meal.getTv_meal_title();
+                onMoreOptionsClickListener.onMoreOptionsClick(mealImage, mealTitle);
             }
         });
     }
@@ -67,6 +69,6 @@ public class SavedHorAdapter extends RecyclerView.Adapter<SavedHorAdapter.ViewHo
 
     // Interface to handle click events on iv_more_options
     public interface OnMoreOptionsClickListener {
-        void onMoreOptionsClick(MenuVerModel meal);
+        void onMoreOptionsClick(int mealImage, String mealTitle);
     }
 }
