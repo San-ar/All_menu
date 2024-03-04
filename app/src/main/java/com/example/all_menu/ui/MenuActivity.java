@@ -59,7 +59,6 @@ public class MenuActivity extends AppCompatActivity {
         btnBreakfast = findViewById(R.id.btnBreakfast);
         btnLunch = findViewById(R.id.btnLunch);
         btnDinner = findViewById(R.id.btnDinner);
-        TextView textView = findViewById(R.id.back_all_menu);
         selectedOptionIndicator = findViewById(R.id.selectedOptionIndicator);
 
 
