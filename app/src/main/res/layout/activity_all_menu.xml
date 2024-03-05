@@ -14,7 +14,7 @@
         android:background="@color/yellow"
         android:drawablePadding="15dp"
         android:paddingTop="35dp"
-        android:text="ALL MENU"
+        android:text="@string/all_menu"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -61,26 +61,28 @@
         android:layout_height="0dp"
         android:layout_margin="6dp"
         android:paddingTop="10dp"
+        android:paddingBottom="85dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter_options" />
 
+    <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:id="@+id/bottomNavigationView"
-        android:background="@drawable/bottom_nav_bar_bg"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bottom_nav_bar_bg"
         android:elevation="10dp"
-        app:menu="@menu/bottom_menu"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

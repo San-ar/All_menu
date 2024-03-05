@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.all_menu.R;
-import com.example.all_menu.adapters.MenuVerAdapter;
 import com.example.all_menu.adapters.SelectMealsAdapter;
 import com.example.all_menu.models.MenuVerModel;
 import com.example.all_menu.models.MenuViewModel;

@@ -34,10 +34,8 @@ public class SavedMealsSelectionActivity extends AppCompatActivity implements Se
         setContentView(R.layout.activity_saved_meals_selection);
 
         TextView back_select_saved = findViewById(R.id.back_select_meals_saved);
-
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         TextView emptyTextView = findViewById(R.id.emptyTextView);
-
         bt_add_meal = findViewById(R.id.bt_add_meal);
 
         back_select_saved.setOnClickListener(view -> finish());

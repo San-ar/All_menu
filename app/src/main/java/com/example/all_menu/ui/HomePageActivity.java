@@ -1,12 +1,13 @@
 package com.example.all_menu.ui;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.all_menu.R;
 import com.example.all_menu.adapters.MenuVerAdapter;
@@ -14,7 +15,6 @@ import com.example.all_menu.models.MenuVerModel;
 import com.example.all_menu.models.MenuViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -30,6 +30,14 @@ public class HomePageActivity extends AppCompatActivity {
         //Initialize RecyclerView
         homeVerticalRec = findViewById(R.id.home_ver_rec);
 
+        // Create ViewModel instance
+        MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
+
+        // Observe menu items LiveData
+        // Update UI with menu items
+        menuViewModel.getMenuItemsLiveData().observe(this, this::setupRecyclerView);
+
+        //Bottom Navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
 
@@ -55,18 +63,8 @@ public class HomePageActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.bottom_notification) {
                 return true;
 
-            } else if (item.getItemId() == R.id.bottom_profile) {
-                return true;
-            }
-            return false;
+            } else return item.getItemId() == R.id.bottom_profile;
         });
-
-        // Create ViewModel instance
-        MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
-
-        // Observe menu items LiveData
-        // Update UI with menu items
-        menuViewModel.getMenuItemsLiveData().observe(this, this::setupRecyclerView);
     }
 
     //Method for "See All" Textview

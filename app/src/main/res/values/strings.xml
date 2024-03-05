@@ -22,4 +22,26 @@
     <string name="str_tv_ing_berries">¼ CUP MIXED BERRIES \n\nAROUND 20 – 30 kcal (RM 1.58)</string>
     <string name="str_tv_ing_honey">1 TEASPOON HONEY \n\nAROUND 20 kcal (RM 0.14)</string>
     <string name="str_tv_ing_granola">2 TABLESPOON GRANOLA \n\nAROUND 80 kcal (RM 1.19)</string>
+    <string name="see_all">See All</string>
+    <string name="tv_rec_meals">Recommended Meals</string>
+    <string name="all_menu">ALL MENU</string>
+    <string name="meal_planner">MEAL PLANNER</string>
+    <string name="iv_go_left">GO LEFT</string>
+    <string name="hyphen">-</string>
+    <string name="iv_go_right">GO RIGHT</string>
+    <string name="saved_meals">Saved Meals</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="tv_bt_confirm_order">CONFIRM ORDER</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="select_meals">SELECT MEALS</string>
+    <string name="no_saved_meals">No saved meals</string>
+    <string name="bt_add_meal">ADD MEAL</string>
 </resources>

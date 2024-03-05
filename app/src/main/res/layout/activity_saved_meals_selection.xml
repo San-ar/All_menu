@@ -11,7 +11,7 @@
         android:background="@color/yellow"
         android:drawablePadding="15dp"
         android:paddingTop="35dp"
-        android:text="SELECT MEALS"
+        android:text="@string/select_meals"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
+        android:paddingBottom="35dp"
         app:cardBackgroundColor="@color/light_grey"
         app:cardCornerRadius="10dp"
         app:cardElevation="2dp"
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-            android:text="Saved Meals"
+            android:text="@string/saved_meals"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -55,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="No saved meals"
+            android:text="@string/no_saved_meals"
             android:textSize="18sp"
             android:visibility="gone" />
 
@@ -67,14 +68,14 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@color/yellow"
-        android:text="ADD MEAL"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:elevation="10dp"
-        android:onClick="onAddMealButtonClick"/>
+        android:onClick="onAddMealButtonClick"
+        android:text="@string/bt_add_meal"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

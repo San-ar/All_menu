@@ -11,7 +11,7 @@
         android:background="@color/yellow"
         android:drawablePadding="15dp"
         android:paddingTop="35dp"
-        android:text="SELECT MEALS"
+        android:text="@string/select_meals"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -28,6 +28,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/search_bg"
         android:drawablePadding="10dp"
+        android:elevation="10dp"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -35,8 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_select_meals_all"
-        app:queryHint="Search All Menu"
-        android:elevation="10dp"/>
+        app:queryHint="Search All Menu" />
 
     <include
         android:id="@+id/filter_options_all_selection"
@@ -46,33 +46,33 @@
         android:layout_marginHorizontal="5dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
+        android:elevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_all_selection"
-        android:elevation="10dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_all_selection" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/priced_meal_card"
         android:layout_marginTop="195dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="2dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/priced_meal_card" />
 
     <Button
         android:id="@+id/bt_add_meal_all"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@color/yellow"
+        android:onClick="onAddMealButtonClick"
         android:text="ADD MEAL"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:onClick="onAddMealButtonClick"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

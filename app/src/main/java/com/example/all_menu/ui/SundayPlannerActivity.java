@@ -37,13 +37,10 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
     private ActivityResultLauncher<Intent> selectedMealsLauncher;
     private SharedPreferences sharedPreferences;
 
-    private static final String TAG = "SundayPlannerActivity";
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sunday_planner);
 
-        Log.d(TAG, "onCreate: Started");
 
         TextView back_sunday_planner = findViewById(R.id.back_sunday_planner);
         RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
@@ -64,16 +61,13 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
             startActivity(intent);
         });
 
-        sharedPreferences = getSharedPreferences("SavedMeals", Context.MODE_PRIVATE);
         // Retrieve the saved meals list from SharedPreferences
+        sharedPreferences = getSharedPreferences("SavedMeals", Context.MODE_PRIVATE);
+
         List<MenuVerModel> savedMealsList = getSavedMealsFromSharedPreferences();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-        // Log the size of savedMealsList
-        assert savedMealsList != null;
-        Log.d("SundayPlannerActivity", "Saved meals list size: " + savedMealsList.size());
 
         // Initialize and set adapter
         SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, this);
@@ -225,9 +219,6 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
 
         storeMealDetails(mealImage, mealTitle);
 
-        boolean isSundayPlannerSharedPreferencesEmpty = isSundayPlannerSharedPreferencesEmpty();
-        Log.d(TAG, "onCreate: isSharedPreferencesEmpty: " + isSundayPlannerSharedPreferencesEmpty);
-
         // Find the appropriate LinearLayout and add the card
         LinearLayout container;
         if (chosenMealType != null) {
@@ -249,16 +240,6 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
         } else {
             Log.e("SundayPlannerActivity", "chosenMealType is null");
         }
-    }
-
-    private boolean isSundayPlannerSharedPreferencesEmpty() {
-        // Get SharedPreferences instance for the Sunday planner
-        SharedPreferences sharedPreferences = getSharedPreferences("MealDetails", Context.MODE_PRIVATE);
-
-        // Check if SharedPreferences is empty
-        boolean isEmpty = sharedPreferences.getAll().isEmpty();
-        Log.d(TAG, "isSundayPlannerSharedPreferencesEmpty: " + isEmpty);
-        return isEmpty;
     }
 
 

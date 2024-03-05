@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Action Bar to go back to home page -->
+    <!-- Action Bar to go back to all menu page -->
     <TextView
         android:id="@+id/back_meal_planner"
         android:layout_width="match_parent"
@@ -13,7 +12,7 @@
         android:background="@color/yellow"
         android:drawablePadding="15dp"
         android:paddingTop="35dp"
-        android:text="MEAL PLANNER"
+        android:text="@string/meal_planner"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -23,19 +22,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- NestedScrollView to make the whole screen scrollable -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="0dp"
+        android:paddingBottom="85dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_meal_planner"
-        android:elevation="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/back_meal_planner">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:elevation="0dp">
+            android:elevation="0dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/search"
@@ -48,34 +49,33 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:contentDescription="GO LEFT"
-                    android:src="@drawable/chevron_left"
-                    android:onClick="previousWeekAction"/>
+                    android:contentDescription="@string/iv_go_left"
+                    android:src="@drawable/chevron_left" />
 
                 <TextView
                     android:id="@+id/tv_start_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="end"
                     android:layout_weight="2"
+                    android:gravity="end"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_arrow_left"
-                    app:layout_constraintTop_toTopOf="@+id/search"/>
+                    app:layout_constraintTop_toTopOf="@+id/search" />
 
                 <TextView
                     android:id="@+id/tv_start_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="  -  "
+                    android:text="@string/hyphen"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_arrow_left"
-                    app:layout_constraintTop_toTopOf="@+id/search"/>
+                    app:layout_constraintTop_toTopOf="@+id/search" />
 
                 <TextView
                     android:id="@+id/tv_end_date"
@@ -87,16 +87,15 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right"
-                    app:layout_constraintTop_toTopOf="@+id/search"/>
+                    app:layout_constraintTop_toTopOf="@+id/search" />
 
                 <ImageView
                     android:id="@+id/iv_arrow_right"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:contentDescription="GO RIGHT"
-                    android:src="@drawable/chevron_right"
-                    android:onClick="nextWeekAction"/>
+                    android:contentDescription="@string/iv_go_right"
+                    android:src="@drawable/chevron_right" />
 
             </LinearLayout>
 
@@ -105,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
-                android:text="Saved Meals"
+                android:text="@string/saved_meals"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -120,20 +119,20 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_week_item0"
-                    android:onClick="sunday_planner_action"
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
                     android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
+                    android:onClick="sunday_planner_action"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Sunday"
+                    android:text="@string/sunday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -147,7 +146,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Monday"
+                    android:text="@string/monday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -157,11 +156,11 @@
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Tuesday"
-                    android:background="@drawable/rounded_corners"
+                    android:text="@string/tuesday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -171,11 +170,11 @@
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Wednesday"
-                    android:background="@drawable/rounded_corners"
+                    android:text="@string/wednesday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -185,11 +184,11 @@
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Thursday"
-                    android:background="@drawable/rounded_corners"
+                    android:text="@string/thursday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -199,11 +198,11 @@
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Friday"
-                    android:background="@drawable/rounded_corners"
+                    android:text="@string/friday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -213,11 +212,11 @@
                     android:layout_width="365dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_corners"
                     android:gravity="center_vertical"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Saturday"
-                    android:background="@drawable/rounded_corners"
+                    android:text="@string/saturday"
                     android:textColor="@color/black"
                     android:textSize="27sp"
                     app:drawableEndCompat="@drawable/chevron_right" />
@@ -226,15 +225,15 @@
                     android:id="@+id/bt_confirm_order"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:background="@color/yellow"
-                    android:text="CONFIRM ORDER"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="80dp"
-                    android:onClick="onConfirmOrderButtonClick"/>
+                    android:background="@color/yellow"
+                    android:onClick="onConfirmOrderButtonClick"
+                    android:text="@string/tv_bt_confirm_order"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
             </LinearLayout>
 
@@ -242,21 +241,22 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:id="@+id/bottomNavigationView"
-        android:background="@drawable/bottom_nav_bar_bg"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bottom_nav_bar_bg"
         android:elevation="10dp"
-        app:menu="@menu/bottom_menu"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

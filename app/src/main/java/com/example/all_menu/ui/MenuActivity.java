@@ -1,12 +1,5 @@
 package com.example.all_menu.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +10,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.all_menu.R;
 import com.example.all_menu.adapters.MenuVerAdapter;
@@ -31,20 +30,17 @@ import java.util.Set;
 
 public class MenuActivity extends AppCompatActivity {
 
-    RecyclerView menuVerticalRec;
-    MenuVerAdapter menuVerAdapter;
-    SearchView searchView;
-    TextView textView;
-
-    private Button btnAll, btnBreakfast, btnLunch, btnDinner;
-    private View selectedOptionIndicator;
-
     private static final String ALL_MEALS = "All";
     private static final String BREAKFAST = "Breakfast";
     private static final String LUNCH = "Lunch";
     private static final String DINNER = "Dinner";
-
     private final List<MenuVerModel> savedMealsList = new ArrayList<>();
+    RecyclerView menuVerticalRec;
+    MenuVerAdapter menuVerAdapter;
+    SearchView searchView;
+    TextView textView;
+    private Button btnAll, btnBreakfast, btnLunch, btnDinner;
+    private View selectedOptionIndicator;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +48,7 @@ public class MenuActivity extends AppCompatActivity {
 
         // Initialize views
         menuVerticalRec = findViewById(R.id.menu_ver_rec);
-
         searchView = findViewById(R.id.search);
-
         textView = findViewById(R.id.back_all_menu);
         btnAll = findViewById(R.id.btnAll);
         btnBreakfast = findViewById(R.id.btnBreakfast);
@@ -62,6 +56,44 @@ public class MenuActivity extends AppCompatActivity {
         btnDinner = findViewById(R.id.btnDinner);
         selectedOptionIndicator = findViewById(R.id.selectedOptionIndicator);
 
+        // Handle click event for the All Menu Back TextView
+        textView.setOnClickListener(v -> {
+
+            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
+
+        // Create ViewModel instance
+        MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
+
+        // Observe menu items LiveData
+        // Update UI with menu items
+        menuViewModel.getMenuItemsLiveData().observe(this, this::setupRecyclerView);
+
+        setupSearchView();
+
+        emptyPlanner();
+
+        // Click listeners for filter buttons
+        btnAll.setOnClickListener(v -> filterMenuItems(ALL_MEALS));
+        btnBreakfast.setOnClickListener(v -> filterMenuItems(BREAKFAST));
+        btnLunch.setOnClickListener(v -> filterMenuItems(LUNCH));
+        btnDinner.setOnClickListener(v -> filterMenuItems(DINNER));
+
+        // By default, select "All" option in filter menu
+        ViewTreeObserver viewTreeObserver = btnAll.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // The listener removed to avoid multiple calls
+                btnAll.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // Call selectOption with the initialized buttons
+                selectOption(btnAll);
+            }
+        });
+
+        //Bottom Navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_search);
 
@@ -88,49 +120,7 @@ public class MenuActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.bottom_notification) {
                 return true;
 
-            } else if (item.getItemId() == R.id.bottom_profile) {
-                return true;
-
-            }
-            return false;
-        });
-
-
-        // Create ViewModel instance
-        MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
-
-        // Observe menu items LiveData
-        // Update UI with menu items
-        menuViewModel.getMenuItemsLiveData().observe(this, this::setupRecyclerView);
-
-        setupSearchView();
-
-        emptyPlanner();
-
-        // Click listeners for filter buttons
-        btnAll.setOnClickListener(v -> filterMenuItems(ALL_MEALS));
-        btnBreakfast.setOnClickListener(v -> filterMenuItems(BREAKFAST));
-        btnLunch.setOnClickListener(v -> filterMenuItems(LUNCH));
-        btnDinner.setOnClickListener(v -> filterMenuItems(DINNER));
-
-        // Handle click event for the All Menu Back TextView
-        textView.setOnClickListener(v -> {
-
-            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-        });
-
-        // By default, select "All" option in filter menu
-        ViewTreeObserver viewTreeObserver = btnAll.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                // The listener removed to avoid multiple calls
-                btnAll.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                // Call selectOption with the initialized buttons
-                selectOption(btnAll);
-            }
+            } else return item.getItemId() == R.id.bottom_profile;
         });
 
 
@@ -235,6 +225,7 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    //Method to select filter option
     private void selectOption(Button button) {
         // Update button text color
         int yellowColor = ContextCompat.getColor(this, R.color.yellow);
@@ -298,6 +289,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    // Method to clear any previous added meals from meal planner
     private void emptyPlanner() {
         SharedPreferences sharedPreferences = getSharedPreferences("MealDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
