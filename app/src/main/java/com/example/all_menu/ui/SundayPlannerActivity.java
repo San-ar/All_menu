@@ -1,6 +1,8 @@
 package com.example.all_menu.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +33,13 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
     private LinearLayout dinnerContainer;
     private ActivityResultLauncher<Intent> selectedMealsLauncher;
 
+    private static final String TAG = "SundayPlannerActivity";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sunday_planner);
+
+        Log.d(TAG, "onCreate: Started");
 
         TextView back_sunday_planner = findViewById(R.id.back_sunday_planner);
 
@@ -50,8 +56,12 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
         back_sunday_planner.setOnClickListener(v -> {
             Intent intent = new Intent(SundayPlannerActivity.this, MealPlannerActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra("showButton", true);
             startActivity(intent);
         });
+
+        boolean isSundayPlannerSharedPreferencesEmpty = isSundayPlannerSharedPreferencesEmpty();
+        Log.d(TAG, "onCreate: isSharedPreferencesEmpty: " + isSundayPlannerSharedPreferencesEmpty);
 
         // Retrieve saved meals list from intent extras
         List<MenuVerModel> savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
@@ -161,7 +171,22 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
         selectedMealsLauncher.launch(intent);
     }
 
+    private void storeMealDetails(int mealImage, String mealTitle) {
+        // Get SharedPreferences instance
+        SharedPreferences sharedPreferences = getSharedPreferences("MealDetails", Context.MODE_PRIVATE);
 
+        // Get the current quantity for the meal
+        int currentQuantity = sharedPreferences.getInt(mealTitle + "_quantity", 0);
+
+        // Increment the quantity by 1
+        int quantity = currentQuantity + 1;
+
+        // Store meal image, title, and quantity
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(mealTitle + "_image", mealImage);
+        editor.putInt(mealTitle + "_quantity", quantity);
+        editor.apply();
+    }
 
     private void displayMealDetails(int mealImage, String mealTitle) {
         // Inflate your custom card layout
@@ -173,6 +198,11 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
 
         ivAddedRecipe.setImageResource(mealImage);
         tvAddedMealTitle.setText(mealTitle);
+
+        storeMealDetails(mealImage, mealTitle);
+
+        boolean isSundayPlannerSharedPreferencesEmpty = isSundayPlannerSharedPreferencesEmpty();
+        Log.d(TAG, "onCreate: isSharedPreferencesEmpty: " + isSundayPlannerSharedPreferencesEmpty);
 
         // Find the appropriate LinearLayout and add the card
         LinearLayout container;
@@ -195,6 +225,16 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
         } else {
             Log.e("SundayPlannerActivity", "chosenMealType is null");
         }
+    }
+
+    private boolean isSundayPlannerSharedPreferencesEmpty() {
+        // Get SharedPreferences instance for the Sunday planner
+        SharedPreferences sharedPreferences = getSharedPreferences("MealDetails", Context.MODE_PRIVATE);
+
+        // Check if SharedPreferences is empty
+        boolean isEmpty = sharedPreferences.getAll().isEmpty();
+        Log.d(TAG, "isSundayPlannerSharedPreferencesEmpty: " + isEmpty);
+        return isEmpty;
     }
 
 
