@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.all_menu.R;
 import com.example.all_menu.adapters.SavedHorAdapter;
 import com.example.all_menu.models.MenuVerModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,39 @@ public class MealPlannerActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
 
         Button btConfirmOrder = findViewById(R.id.bt_confirm_order);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_planner);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                item.setChecked(true);
+                finish();
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_search) {
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                item.setChecked(true);
+                finish();
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_planner) {
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_notification) {
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_profile) {
+                return true;
+
+            }
+            return false;
+        });
 
         // Click event for the Meal Planner Back TextView
         back_meal_planner.setOnClickListener(v -> {

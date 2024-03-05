@@ -22,6 +22,7 @@ import com.example.all_menu.R;
 import com.example.all_menu.adapters.MenuVerAdapter;
 import com.example.all_menu.models.MenuVerModel;
 import com.example.all_menu.models.MenuViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -61,6 +62,41 @@ public class MenuActivity extends AppCompatActivity {
         btnDinner = findViewById(R.id.btnDinner);
         selectedOptionIndicator = findViewById(R.id.selectedOptionIndicator);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_search);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                item.setChecked(true);
+                startActivity(intent);
+                finish();
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_search) {
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_planner) {
+                Intent intent = new Intent(getApplicationContext(), MealPlannerActivity.class);
+                // Pass the list of saved meals as an extra
+                intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                item.setChecked(true);
+                finish();
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_notification) {
+                return true;
+
+            } else if (item.getItemId() == R.id.bottom_profile) {
+                return true;
+
+            }
+            return false;
+        });
+
 
         // Create ViewModel instance
         MenuViewModel menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
@@ -80,12 +116,9 @@ public class MenuActivity extends AppCompatActivity {
         btnDinner.setOnClickListener(v -> filterMenuItems(DINNER));
 
         // Handle click event for the All Menu Back TextView
-        //textView.setOnClickListener(v -> finish());
         textView.setOnClickListener(v -> {
 
-            Intent intent = new Intent(this, MealPlannerActivity.class);
-            // Pass the list of saved meals as an extra
-            intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
+            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         });
