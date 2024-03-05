@@ -71,6 +71,8 @@ public class MenuActivity extends AppCompatActivity {
 
         setupSearchView();
 
+        emptyPlanner();
+
         // Click listeners for filter buttons
         btnAll.setOnClickListener(v -> filterMenuItems(ALL_MEALS));
         btnBreakfast.setOnClickListener(v -> filterMenuItems(BREAKFAST));
@@ -80,6 +82,7 @@ public class MenuActivity extends AppCompatActivity {
         // Handle click event for the All Menu Back TextView
         //textView.setOnClickListener(v -> finish());
         textView.setOnClickListener(v -> {
+
             Intent intent = new Intent(this, MealPlannerActivity.class);
             // Pass the list of saved meals as an extra
             intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
@@ -262,6 +265,13 @@ public class MenuActivity extends AppCompatActivity {
                 menuVerAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    private void emptyPlanner() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MealDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Clear all the data
+        editor.apply(); // Apply changes
     }
 }
 
