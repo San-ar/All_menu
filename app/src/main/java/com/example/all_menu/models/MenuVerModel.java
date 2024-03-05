@@ -10,6 +10,7 @@ public class MenuVerModel implements Serializable {
     String tv_time;
     String tv_meal_title;
     boolean isSelected;
+    int quantity;
 
 
     // Constructor to initialize menu item
@@ -20,6 +21,7 @@ public class MenuVerModel implements Serializable {
         this.tv_time = tv_time;
         this.tv_meal_title = tv_meal_title;
         this.isSelected = false;
+        this.quantity = 0;
     }
 
     // Getter and setter methods for each variable
@@ -73,6 +75,14 @@ public class MenuVerModel implements Serializable {
 
     // Method to get the meal type (same as meal label)
     public String getMealType() { return tv_meal_label;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }
