@@ -1,9 +1,12 @@
 package com.example.all_menu.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +39,8 @@ public class MealPlannerActivity extends AppCompatActivity {
         TextView back_meal_planner = findViewById(R.id.back_meal_planner);
 
         RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
+
+        Button btConfirmOrder = findViewById(R.id.bt_confirm_order);
 
         // Click event for the Meal Planner Back TextView
         back_meal_planner.setOnClickListener(v -> {
@@ -92,7 +97,7 @@ public class MealPlannerActivity extends AppCompatActivity {
 
     public void sunday_planner_action(View view) {
         // Retrieve the saved meals list from intent extras
-        savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
+        List<MenuVerModel> savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
 
         // Create the intent for SundayPlannerActivity
         Intent intent = new Intent(this, SundayPlannerActivity.class);
@@ -102,5 +107,9 @@ public class MealPlannerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    public void onConfirmOrderButtonClick(View view) {
+        Intent intent = new Intent(this, ReviewOrdersActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
 }
