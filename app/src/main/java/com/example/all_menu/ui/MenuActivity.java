@@ -79,8 +79,6 @@ public class MenuActivity extends AppCompatActivity {
 
             } else if (item.getItemId() == R.id.bottom_planner) {
                 Intent intent = new Intent(getApplicationContext(), MealPlannerActivity.class);
-                // Pass the list of saved meals as an extra
-                intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 item.setChecked(true);

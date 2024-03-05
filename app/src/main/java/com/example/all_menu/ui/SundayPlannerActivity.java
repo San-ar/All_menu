@@ -22,7 +22,10 @@ import com.example.all_menu.adapters.SavedHorAdapter;
 import com.example.all_menu.models.MenuVerModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SundayPlannerActivity extends AppCompatActivity implements SavedHorAdapter.OnMoreOptionsClickListener{
 
@@ -32,6 +35,7 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
     private LinearLayout lunchContainer;
     private LinearLayout dinnerContainer;
     private ActivityResultLauncher<Intent> selectedMealsLauncher;
+    private SharedPreferences sharedPreferences;
 
     private static final String TAG = "SundayPlannerActivity";
 
@@ -42,7 +46,7 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
         Log.d(TAG, "onCreate: Started");
 
         TextView back_sunday_planner = findViewById(R.id.back_sunday_planner);
-
+        RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
         TextView breakfastTextView = findViewById(R.id.tv_day_item0);
         TextView lunchTextView = findViewById(R.id.tv_day_item1);
         TextView dinnerTextView = findViewById(R.id.tv_day_item2);
@@ -60,22 +64,21 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
             startActivity(intent);
         });
 
-        boolean isSundayPlannerSharedPreferencesEmpty = isSundayPlannerSharedPreferencesEmpty();
-        Log.d(TAG, "onCreate: isSharedPreferencesEmpty: " + isSundayPlannerSharedPreferencesEmpty);
+        sharedPreferences = getSharedPreferences("SavedMeals", Context.MODE_PRIVATE);
+        // Retrieve the saved meals list from SharedPreferences
+        List<MenuVerModel> savedMealsList = getSavedMealsFromSharedPreferences();
 
-        // Retrieve saved meals list from intent extras
-        List<MenuVerModel> savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
-        if (savedMealsList != null) {
-            // Initialize RecyclerView and set adapter
-            RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(layoutManager);
-            SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, this);
-            recyclerView.setAdapter(adapter);
-        } else {
-            Log.e("SundayPlannerActivity", "Saved meals list is null");
-        }
+        // Log the size of savedMealsList
+        assert savedMealsList != null;
+        Log.d("SundayPlannerActivity", "Saved meals list size: " + savedMealsList.size());
+
+        // Initialize and set adapter
+        SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, this);
+        recyclerView.setAdapter(adapter);
+
 
         breakfastTextView.setOnClickListener(v -> {
             chosenMealType = "Breakfast";
@@ -109,6 +112,27 @@ public class SundayPlannerActivity extends AppCompatActivity implements SavedHor
                 }
         );
 
+    }
+
+    private List<MenuVerModel> getSavedMealsFromSharedPreferences() {
+        // Retrieve the saved meals set from SharedPreferences
+        Set<String> savedMealsSet = sharedPreferences.getStringSet("savedMeals", new HashSet<>());
+
+        // Convert the set to a list of MenuVerModel objects
+        List<MenuVerModel> savedMealsList = new ArrayList<>();
+        for (String meal : savedMealsSet) {
+            // Parse the meal string and create a MenuVerModel object
+            String[] parts = meal.split(",");
+            if (parts.length == 5) {
+                int imageResId = Integer.parseInt(parts[0]);
+                String mealType = parts[1];
+                String calorie = parts[2];
+                String time = parts[3];
+                String mealTitle = parts[4];
+                savedMealsList.add(new MenuVerModel(imageResId, mealType, calorie, time, mealTitle));
+            }
+        }
+        return savedMealsList;
     }
 
     public void onMoreOptionsClick(int mealImage, String mealTitle) {

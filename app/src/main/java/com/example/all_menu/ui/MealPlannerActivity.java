@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.all_menu.R;
 import com.example.all_menu.adapters.SavedHorAdapter;
+import com.example.all_menu.adapters.SelectMealsAdapter;
 import com.example.all_menu.models.MenuVerModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,12 +23,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class MealPlannerActivity extends AppCompatActivity {
 
-    private List<MenuVerModel> savedMealsList;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,21 @@ public class MealPlannerActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.saved_hor_rec);
 
         Button btConfirmOrder = findViewById(R.id.bt_confirm_order);
+
+        sharedPreferences = getSharedPreferences("SavedMeals", Context.MODE_PRIVATE);
+        // Retrieve the saved meals list from SharedPreferences
+        List<MenuVerModel> savedMealsList = getSavedMealsFromSharedPreferences();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Log the size of savedMealsList
+        assert savedMealsList != null;
+        Log.d("MealPlannerActivity", "Saved meals list size: " + savedMealsList.size());
+
+        // Initialize and set adapter
+        SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, null);
+        recyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_planner);
@@ -106,21 +124,30 @@ public class MealPlannerActivity extends AppCompatActivity {
         startDateTextView.setText(formattedStartDate);
         endDateTextView.setText(formattedEndDate);
 
-       
-        // Retrieve saved meals list from intent extras
-        List<MenuVerModel> savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
 
-        // Log the size of savedMealsList
-        assert savedMealsList != null;
-        Log.d("MealPlannerActivity", "Saved meals list size: " + savedMealsList.size());
 
-        // Initialize and set adapter
-        SavedHorAdapter adapter = new SavedHorAdapter(savedMealsList, null);
-        recyclerView.setAdapter(adapter);
+    }
 
+    private List<MenuVerModel> getSavedMealsFromSharedPreferences() {
+        // Retrieve the saved meals set from SharedPreferences
+        Set<String> savedMealsSet = sharedPreferences.getStringSet("savedMeals", new HashSet<>());
+
+        // Convert the set to a list of MenuVerModel objects
+        List<MenuVerModel> savedMealsList = new ArrayList<>();
+        for (String meal : savedMealsSet) {
+            // Parse the meal string and create a MenuVerModel object
+            String[] parts = meal.split(",");
+            if (parts.length == 5) {
+                int imageResId = Integer.parseInt(parts[0]);
+                String mealType = parts[1];
+                String calorie = parts[2];
+                String time = parts[3];
+                String mealTitle = parts[4];
+                savedMealsList.add(new MenuVerModel(imageResId, mealType, calorie, time, mealTitle));
+            }
+        }
+        return savedMealsList;
     }
 
     public void previousWeekAction(View view) {
@@ -130,13 +157,11 @@ public class MealPlannerActivity extends AppCompatActivity {
     }
 
     public void sunday_planner_action(View view) {
-        // Retrieve the saved meals list from intent extras
-        List<MenuVerModel> savedMealsList = (List<MenuVerModel>) getIntent().getSerializableExtra("savedMeals");
 
         // Create the intent for SundayPlannerActivity
         Intent intent = new Intent(this, SundayPlannerActivity.class);
+
         // Pass the saved meals list as an intent extra
-        intent.putExtra("savedMeals", new ArrayList<>(savedMealsList));
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
